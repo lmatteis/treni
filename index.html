@@ -3,13 +3,14 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <title>Treni by lmatteis</title>
     <style>
-    	body {
+        * {
     		font-family: verdana,helvetica,arial,sans-serif;
-    		font-size: 14px;
-    	}
+    		font-size: 18px;
+        }
     	input {
     		padding: 10px;
     		margin-bottom: 20px;
@@ -17,14 +18,96 @@
     </style>
     <script>
     	window.onload = function() {
-    		if(localStorage.recents) {
-    			
-    			
-    		}
+            displayRecents();
     	}
-    	addstorage = function(form) {
+        function displayRecents() {
+    		if(localStorage && localStorage.recents) {
+    			var recents = document.getElementById('recents');
+                recents.innerHTML = '';
+    			recents.style.display = 'block';
+                var form = document.getElementById('cerca');
+    			
+                var arr = JSON.parse(localStorage.recents);
+                for(var i in arr) {
+                    var a = document.createElement('a');
+                    a.innerHTML = arr[i];
+                    a.href = '#';
+
+                    (function(t) {
+                        a.onclick = function() {
+                            var splitted = t.split(' -> ');
+                            var partenza = splitted[0];
+                            var arrivo = splitted[1];
+
+                            form.partenza.value = partenza;
+                            form.arrivo.value = arrivo;
+                            
+                            return false;
+                        };
+                    })(arr[i]);
+
+                    recents.appendChild(a);
+                    recents.appendChild(document.createTextNode(' - '));
+
+                    var del = document.createElement('a');
+                    del.href = '#';
+                    del.innerHTML = 'X';
+                    del.style.backgroundColor = 'red';
+                    del.style.color = 'white';
+                    del.style.textDecoration = 'none';
+                    del.style.paddingLeft = '10px';
+                    del.style.paddingRight = '10px';
+                    
+                    (function(t) {
+                        del.onclick = function() {
+                            deleteRecent(t);
+                            displayRecents();
+                            return false;
+                        };
+                    })(arr[i]);
+
+                    recents.appendChild(del);
+
+                    recents.appendChild(document.createElement('br'));
+                    recents.appendChild(document.createElement('br'));
+
+                }
+    		}
+        }
+        function deleteRecent(val) {
+            var arr = JSON.parse(localStorage.recents);
+            for(var i in arr) {
+                if(arr[i] == val) {
+                    arr.splice(i, 1);
+                    localStorage.recents = JSON.stringify(arr);
+                    return;
+                }
+            }
+        }
+        function inArray(arr, val) {
+            for(var i in arr) {
+                if(arr[i] == val) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    	addstorage = function() {
+            var form = document.getElementById('cerca');
     		var partenza = form.partenza.value;
     		var arrivo = form.arrivo.value;
+
+            var text = partenza + ' -> ' + arrivo;
+
+            if(localStorage.recents) {
+                var arr = JSON.parse(localStorage.recents);
+            } else {
+                var arr = [];
+            }
+            if(!inArray(arr, text)){
+                arr.push(text);
+            }
+            localStorage.recents = JSON.stringify(arr);
     		
     		form.submit();
     	}
@@ -65,10 +148,11 @@
                 <input type="hidden" name="lang" value="IT">
 				<input type="submit" id="submit" accesskey="c" tabindex="7" value="Cerca">
 				</p>
-				<p style="display: none" id="recents">
-					<h3>Recenti</h3>
+				<h3>Recenti</h3>
+				<div style="display: none;" id="recents">
 					
-				</p>
+				</div>
 			</form>
   </body>
 </html>
+
