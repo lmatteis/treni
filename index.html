@@ -16,15 +16,14 @@
     	}
     </style>
     <script>
-    	addstorage = function() {
-    		console.log(this);
-    		return false;
+    	addstorage = function(form) {
+    		console.log(form);
     	}
     </script>
   </head>
 
   <body>
-   <form method="post" id="cerca" action="http://mobile.viaggiatreno.it/viaggiatreno/mobile/tragitto" onsubmit="addstorage">
+   <form method="post" id="cerca" action="http://mobile.viaggiatreno.it/viaggiatreno/mobile/tragitto" onsubmit="addstorage(this); return false;">
   			<p>
 				<label for="partenza">Localita' di partenza</label>
 				<br>
