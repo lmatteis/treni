@@ -12,12 +12,19 @@
     	}
     	input {
     		padding: 10px;
+    		margin-bottom: 20px;
     	}
     </style>
+    <script>
+    	addstorage = function() {
+    		console.log(this);
+    		return false;
+    	}
+    </script>
   </head>
 
   <body>
-   <form method="post" id="cerca" action="http://mobile.viaggiatreno.it/viaggiatreno/mobile/tragitto">
+   <form method="post" id="cerca" action="http://mobile.viaggiatreno.it/viaggiatreno/mobile/tragitto" onsubmit="addstorage">
   			<p>
 				<label for="partenza">Localita' di partenza</label>
 				<br>
