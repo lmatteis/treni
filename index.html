@@ -16,7 +16,15 @@
     	}
     </style>
     <script>
+    	window.onload = function() {
+    		if(localStorage.recents) {
+    			
+    			
+    		}
+    	}
     	addstorage = function(form) {
+    		var partenza = form.partenza.value;
+    		console.log(partenza);
     		form.submit();
     	}
     </script>
@@ -55,6 +63,10 @@
 				<br>
                 <input type="hidden" name="lang" value="IT">
 				<input type="submit" id="submit" accesskey="c" tabindex="7" value="Cerca">
+				</p>
+				<p style="display: none" id="recents">
+					<h3>Recenti</h3>
+					
 				</p>
 			</form>
   </body>
