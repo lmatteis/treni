@@ -11,10 +11,29 @@
     		font-family: verdana,helvetica,arial,sans-serif;
     		font-size: 18px;
         }
-    	input {
+        body {
+            padding:0;
+            margin:0;
+            background: #F36861;
+            color: #FFD99E;
+            padding: 20px;
+        }
+    	input[type=text] {
     		padding: 10px;
     		margin-bottom: 20px;
+            margin-top: 5px;
+            background-color:#FFD99E;
+            border: 0;
+            width: 100%;
+webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+            
     	}
+    	input[type=submit] {
+            background-color:#FFD99E;
+            border: 0;
+        }
     </style>
     <script>
     	window.onload = function() {
